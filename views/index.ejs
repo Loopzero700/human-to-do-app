@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Human ToDo App</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Human ToDo App</h1>
+
+    <form class="add-form" action="/add" method="POST" autocomplete="off">
+      <input name="text" type="text" placeholder="Add a new task..." />
+      <button type="submit">Add</button>
+    </form>
+
+    <% if (tasks.length === 0) { %>
+      <p class="empty">No tasks yet — add one above ✨</p>
+    <% } else { %>
+      <ul class="todo-list">
+        <% tasks.forEach(task => { %>
+          <li class="task <%= task.done ? 'done' : '' %>">
+            <form class="toggle" action="/toggle/<%= task.id %>" method="POST">
+              <button title="toggle" type="submit" class="checkbox"><%= task.done ? "✓" : "" %></button>
+            </form>
+
+            <span class="text"><%= task.task%></span>
+
+            <form class="delete" action="/delete/<%= task.id %>" method="POST">
+              <button title="delete" type="submit">✕</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+
+      <form class="clear" action="/clear-completed" method="POST">
+        <button type="submit">Clear completed</button>
+      </form>
+    <% } %>
+  </main>
+</body>
+</html>
+
+<script>"/js/main.js"</script>
